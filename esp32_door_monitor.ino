@@ -10,6 +10,8 @@ const int   daylightOffset_sec = 0;
 struct tm openTimeInfo;
 String angry_photo_url = "https://media0.giphy.com/media/11tTNkNy1SdXGg/200.gif";
 
+int buzzer = 17; // piezo buzzer connected to GPIO17
+
 String getOpenDateTime()
 {
   if (!getLocalTime(&openTimeInfo)) {
@@ -26,7 +28,7 @@ String getOpenDateTime()
 }
 
 
-#define DOOR_SENSOR_PIN  4  // ESP32 pin G4 connected to door sensor pin
+#define DOOR_SENSOR_PIN  4  // Magnetic reed switch connected to GPIO4
 
 int doorState = 0;
 String state = "closed";
@@ -77,6 +79,12 @@ void loop() {
     int seconds = difftime(now, mktime(&openTimeInfo));
     if ((seconds%60) == 0 && state == "open"){
       bot.sendPhoto(CHAT_ID, angry_photo_url, "You didn't close the door on time!");
+      for(int i=0; i < 10; i++){
+        digitalWrite (buzzer, HIGH); //turn buzzer on
+        delay(200);
+        digitalWrite (buzzer, LOW);  //turn buzzer off
+        delay(200);
+      }
     }
     
 
