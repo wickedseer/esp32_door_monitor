@@ -6,5 +6,6 @@ Diagram: <br>
   <li> ESP32 SoC </li>
   <li> Magnetic Reed Switch </li>
   <li> Piezo Buzzer </li>
+  <li> 10k ohm resistor </li>
   <li> Jumper Cables </li>
 </ul>
